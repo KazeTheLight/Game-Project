@@ -1,0 +1,640 @@
+{
+  "levels": {
+    "1": [
+      {
+        "text": "I am happy",
+        "translation": "Saya merasa senang",
+        "wordTranslations": {
+          "I": "Saya",
+          "am": "adalah",
+          "happy": "senang"
+        }
+      },
+      {
+        "text": "She is cute",
+        "translation": "Dia (perempuan) itu imut",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "is": "adalah",
+          "cute": "imut"
+        }
+      },
+      {
+        "text": "He is tall",
+        "translation": "Dia (laki-laki) itu tinggi",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "is": "adalah",
+          "tall": "tinggi"
+        }
+      },
+      {
+        "text": "We are friends",
+        "translation": "Kami adalah teman",
+        "wordTranslations": {
+          "We": "Kami",
+          "are": "adalah",
+          "friends": "teman"
+        }
+      },
+      {
+        "text": "It is a cat",
+        "translation": "Itu adalah seekor kucing",
+        "wordTranslations": {
+          "It": "Itu",
+          "is": "adalah",
+          "a": "seekor",
+          "cat": "kucing"
+        }
+      }
+    ],
+    "2": [
+      {
+        "text": "I like cats",
+        "translation": "Saya suka kucing",
+        "wordTranslations": {
+          "I": "Saya",
+          "like": "suka",
+          "cats": "kucing"
+        }
+      },
+      {
+        "text": "She has a doll",
+        "translation": "Dia (perempuan) punya boneka",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "has": "punya",
+          "a": "sebuah",
+          "doll": "boneka"
+        }
+      },
+      {
+        "text": "He eats rice",
+        "translation": "Dia (laki-laki) makan nasi",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "eats": "makan",
+          "rice": "nasi"
+        }
+      },
+      {
+        "text": "We drink milk",
+        "translation": "Kami minum susu",
+        "wordTranslations": {
+          "We": "Kami",
+          "drink": "minum",
+          "milk": "susu"
+        }
+      },
+      {
+        "text": "I see a bird",
+        "translation": "Saya melihat seekor burung",
+        "wordTranslations": {
+          "I": "Saya",
+          "see": "melihat",
+          "a": "seekor",
+          "bird": "burung"
+        }
+      }
+    ],
+    "3": [
+      {
+        "text": "I go to school",
+        "translation": "Saya pergi ke sekolah",
+        "wordTranslations": {
+          "I": "Saya",
+          "go": "pergi",
+          "to": "ke",
+          "school": "sekolah"
+        }
+      },
+      {
+        "text": "She plays in the park",
+        "translation": "Dia (perempuan) bermain di taman",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "plays": "bermain",
+          "in": "di",
+          "the": "(kata sandang)",
+          "park": "taman"
+        }
+      },
+      {
+        "text": "He sleeps in his room",
+        "translation": "Dia (laki-laki) tidur di kamarnya",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "sleeps": "tidur",
+          "in": "di",
+          "his": "miliknya",
+          "room": "kamar"
+        }
+      },
+      {
+        "text": "We eat at home",
+        "translation": "Kami makan di rumah",
+        "wordTranslations": {
+          "We": "Kami",
+          "eat": "makan",
+          "at": "di",
+          "home": "rumah"
+        }
+      },
+      {
+        "text": "They swim in the pool",
+        "translation": "Mereka berenang di kolam renang",
+        "wordTranslations": {
+          "They": "Mereka",
+          "swim": "berenang",
+          "in": "di",
+          "the": "(kata sandang)",
+          "pool": "kolam renang"
+        }
+      }
+    ],
+    "4": [
+      {
+        "text": "I wake up every morning",
+        "translation": "Saya bangun setiap pagi",
+        "wordTranslations": {
+          "I": "Saya",
+          "wake": "bangun",
+          "up": "(pelengkap)",
+          "every": "setiap",
+          "morning": "pagi"
+        }
+      },
+      {
+        "text": "She reads a book at night",
+        "translation": "Dia (perempuan) membaca buku di malam hari",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "reads": "membaca",
+          "a": "sebuah",
+          "book": "buku",
+          "at": "pada",
+          "night": "malam"
+        }
+      },
+      {
+        "text": "He plays football after school",
+        "translation": "Dia bermain sepak bola sepulang sekolah",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "plays": "bermain",
+          "football": "sepak bola",
+          "after": "setelah",
+          "school": "sekolah"
+        }
+      },
+      {
+        "text": "We pray five times a day",
+        "translation": "Kami sholat lima waktu sehari",
+        "wordTranslations": {
+          "We": "Kami",
+          "pray": "sholat/berdoa",
+          "five": "lima",
+          "times": "kali",
+          "a": "dalam",
+          "day": "sehari"
+        }
+      },
+      {
+        "text": "They go to bed early",
+        "translation": "Mereka tidur lebih awal",
+        "wordTranslations": {
+          "They": "Mereka",
+          "go": "pergi",
+          "to": "ke",
+          "bed": "tempat tidur",
+          "early": "lebih awal"
+        }
+      }
+    ],
+    "5": [
+      {
+        "text": "My mother cooks delicious food",
+        "translation": "Ibuku memasak makanan yang lezat",
+        "wordTranslations": {
+          "My": "Milikku",
+          "mother": "ibu",
+          "cooks": "memasak",
+          "delicious": "lezat",
+          "food": "makanan"
+        }
+      },
+      {
+        "text": "He always helps his friends",
+        "translation": "Dia selalu membantu teman-temannya",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "always": "selalu",
+          "helps": "membantu",
+          "his": "miliknya",
+          "friends": "teman-teman"
+        }
+      },
+      {
+        "text": "She runs very fast on the track",
+        "translation": "Dia berlari sangat cepat di lintasan",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "runs": "berlari",
+          "very": "sangat",
+          "fast": "cepat",
+          "on": "di",
+          "the": "(kata sandang)",
+          "track": "lintasan"
+        }
+      },
+      {
+        "text": "We study hard every day",
+        "translation": "Kami belajar dengan giat setiap hari",
+        "wordTranslations": {
+          "We": "Kami",
+          "study": "belajar",
+          "hard": "giat/keras",
+          "every": "setiap",
+          "day": "hari"
+        }
+      },
+      {
+        "text": "The small dog barks loudly",
+        "translation": "Anjing kecil itu menggonggong dengan keras",
+        "wordTranslations": {
+          "The": "(kata sandang)",
+          "small": "kecil",
+          "dog": "anjing",
+          "barks": "menggonggong",
+          "loudly": "dengan keras"
+        }
+      }
+    ],
+    "6": [
+      {
+        "text": "I visited my grandmother yesterday",
+        "translation": "Saya mengunjungi nenek saya kemarin",
+        "wordTranslations": {
+          "I": "Saya",
+          "visited": "mengunjungi",
+          "my": "milikku",
+          "grandmother": "nenek",
+          "yesterday": "kemarin"
+        }
+      },
+      {
+        "text": "She bought a new bag last week",
+        "translation": "Dia membeli tas baru minggu lalu",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "bought": "membeli",
+          "a": "sebuah",
+          "new": "baru",
+          "bag": "tas",
+          "last": "lalu",
+          "week": "minggu"
+        }
+      },
+      {
+        "text": "He played football with his friends",
+        "translation": "Dia bermain sepak bola bersama teman-temannya",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "played": "bermain",
+          "football": "sepak bola",
+          "with": "bersama",
+          "his": "miliknya",
+          "friends": "teman-teman"
+        }
+      },
+      {
+        "text": "We watched a movie last night",
+        "translation": "Kami menonton film tadi malam",
+        "wordTranslations": {
+          "We": "Kami",
+          "watched": "menonton",
+          "a": "sebuah",
+          "movie": "film",
+          "last": "tadi",
+          "night": "malam"
+        }
+      },
+      {
+        "text": "They went to the beach on Sunday",
+        "translation": "Mereka pergi ke pantai pada hari Minggu",
+        "wordTranslations": {
+          "They": "Mereka",
+          "went": "pergi",
+          "to": "ke",
+          "the": "(kata sandang)",
+          "beach": "pantai",
+          "on": "pada",
+          "Sunday": "hari Minggu"
+        }
+      }
+    ],
+    "7": [
+      {
+        "text": "She is studying for her final exam",
+        "translation": "Dia sedang belajar untuk ujian akhirnya",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "is": "sedang",
+          "studying": "belajar",
+          "for": "untuk",
+          "her": "miliknya",
+          "final": "akhir",
+          "exam": "ujian"
+        }
+      },
+      {
+        "text": "They are building a new school in our village",
+        "translation": "Mereka sedang membangun sekolah baru di desa kami",
+        "wordTranslations": {
+          "They": "Mereka",
+          "are": "sedang",
+          "building": "membangun",
+          "a": "sebuah",
+          "new": "baru",
+          "school": "sekolah",
+          "in": "di",
+          "our": "milik kami",
+          "village": "desa"
+        }
+      },
+      {
+        "text": "I will visit my uncle next holiday",
+        "translation": "Saya akan mengunjungi paman saat liburan berikutnya",
+        "wordTranslations": {
+          "I": "Saya",
+          "will": "akan",
+          "visit": "mengunjungi",
+          "my": "milikku",
+          "uncle": "paman",
+          "next": "berikutnya",
+          "holiday": "liburan"
+        }
+      },
+      {
+        "text": "He is going to join the science competition",
+        "translation": "Dia akan mengikuti lomba sains",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "is": "sedang",
+          "going": "akan",
+          "to": "(penanda masa depan)",
+          "join": "mengikuti",
+          "the": "(kata sandang)",
+          "science": "sains",
+          "competition": "perlombaan"
+        }
+      },
+      {
+        "text": "We are planning a surprise party for our teacher",
+        "translation": "Kami sedang merencanakan pesta kejutan untuk guru kami",
+        "wordTranslations": {
+          "We": "Kami",
+          "are": "sedang",
+          "planning": "merencanakan",
+          "a": "sebuah",
+          "surprise": "kejutan",
+          "party": "pesta",
+          "for": "untuk",
+          "our": "milik kami",
+          "teacher": "guru"
+        }
+      }
+    ],
+    "8": [
+      {
+        "text": "I have finished reading the novel",
+        "translation": "Saya sudah selesai membaca novel itu",
+        "wordTranslations": {
+          "I": "Saya",
+          "have": "sudah",
+          "finished": "selesai",
+          "reading": "membaca",
+          "the": "(kata sandang)",
+          "novel": "novel"
+        }
+      },
+      {
+        "text": "She has never been to another country before",
+        "translation": "Dia belum pernah pergi ke negara lain sebelumnya",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "has": "sudah",
+          "never": "tidak pernah",
+          "been": "pergi/berada",
+          "to": "ke",
+          "another": "lain",
+          "country": "negara",
+          "before": "sebelumnya"
+        }
+      },
+      {
+        "text": "He studied hard so he passed the exam",
+        "translation": "Dia belajar keras sehingga lulus ujian",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "studied": "belajar",
+          "hard": "keras/giat",
+          "so": "sehingga",
+          "he": "dia",
+          "passed": "lulus",
+          "the": "(kata sandang)",
+          "exam": "ujian"
+        }
+      },
+      {
+        "text": "We have learned many things this semester",
+        "translation": "Kami sudah mempelajari banyak hal semester ini",
+        "wordTranslations": {
+          "We": "Kami",
+          "have": "sudah",
+          "learned": "mempelajari",
+          "many": "banyak",
+          "things": "hal",
+          "this": "ini",
+          "semester": "semester"
+        }
+      },
+      {
+        "text": "They cleaned the classroom because it was very dirty",
+        "translation": "Mereka membersihkan kelas karena sangat kotor",
+        "wordTranslations": {
+          "They": "Mereka",
+          "cleaned": "membersihkan",
+          "the": "(kata sandang)",
+          "classroom": "ruang kelas",
+          "because": "karena",
+          "it": "itu",
+          "was": "adalah/sangat",
+          "very": "sangat",
+          "dirty": "kotor"
+        }
+      }
+    ],
+    "9": [
+      {
+        "text": "If I study harder I will get a better score",
+        "translation": "Jika saya belajar lebih giat saya akan mendapat nilai lebih baik",
+        "wordTranslations": {
+          "If": "Jika",
+          "I": "Saya",
+          "study": "belajar",
+          "harder": "lebih giat",
+          "I": "saya",
+          "will": "akan",
+          "get": "mendapat",
+          "a": "sebuah",
+          "better": "lebih baik",
+          "score": "nilai"
+        }
+      },
+      {
+        "text": "The new library was built by the local government",
+        "translation": "Perpustakaan baru itu dibangun oleh pemerintah daerah",
+        "wordTranslations": {
+          "The": "(kata sandang)",
+          "new": "baru",
+          "library": "perpustakaan",
+          "was": "sudah",
+          "built": "dibangun",
+          "by": "oleh",
+          "local": "daerah/lokal",
+          "government": "pemerintah"
+        }
+      },
+      {
+        "text": "She would travel abroad if she had enough money",
+        "translation": "Dia akan bepergian ke luar negeri jika punya cukup uang",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "would": "akan",
+          "travel": "bepergian",
+          "abroad": "ke luar negeri",
+          "if": "jika",
+          "she": "dia",
+          "had": "punya",
+          "enough": "cukup",
+          "money": "uang"
+        }
+      },
+      {
+        "text": "The experiment was conducted carefully by the students",
+        "translation": "Percobaan itu dilakukan dengan hati-hati oleh para siswa",
+        "wordTranslations": {
+          "The": "(kata sandang)",
+          "experiment": "percobaan",
+          "was": "sudah",
+          "conducted": "dilakukan",
+          "carefully": "dengan hati-hati",
+          "by": "oleh",
+          "students": "para siswa"
+        }
+      },
+      {
+        "text": "He has been preparing for the national exam since January",
+        "translation": "Dia sudah mempersiapkan diri untuk ujian nasional sejak Januari",
+        "wordTranslations": {
+          "He": "Dia (lk)",
+          "has": "sudah",
+          "been": "(penanda durasi)",
+          "preparing": "mempersiapkan",
+          "for": "untuk",
+          "the": "(kata sandang)",
+          "national": "nasional",
+          "exam": "ujian",
+          "since": "sejak",
+          "January": "Januari"
+        }
+      }
+    ],
+    "10": [
+      {
+        "text": "Critical thinking skills are essential for solving complex problems",
+        "translation": "Kemampuan berpikir kritis sangat penting untuk memecahkan masalah kompleks",
+        "wordTranslations": {
+          "Critical": "Kritis",
+          "thinking": "berpikir",
+          "skills": "kemampuan",
+          "are": "adalah",
+          "essential": "sangat penting",
+          "for": "untuk",
+          "solving": "memecahkan",
+          "complex": "kompleks",
+          "problems": "masalah"
+        }
+      },
+      {
+        "text": "The rapid development of technology has transformed modern education significantly",
+        "translation": "Perkembangan teknologi yang pesat telah mengubah pendidikan modern secara signifikan",
+        "wordTranslations": {
+          "The": "(kata sandang)",
+          "rapid": "pesat/cepat",
+          "development": "perkembangan",
+          "of": "dari",
+          "technology": "teknologi",
+          "has": "telah",
+          "transformed": "mengubah",
+          "modern": "modern",
+          "education": "pendidikan",
+          "significantly": "secara signifikan"
+        }
+      },
+      {
+        "text": "Students who read regularly tend to have a broader perspective on life",
+        "translation": "Siswa yang rajin membaca cenderung memiliki wawasan lebih luas tentang kehidupan",
+        "wordTranslations": {
+          "Students": "Siswa",
+          "who": "yang",
+          "read": "membaca",
+          "regularly": "secara rutin",
+          "tend": "cenderung",
+          "to": "(penanda infinitif)",
+          "have": "memiliki",
+          "a": "sebuah",
+          "broader": "lebih luas",
+          "perspective": "wawasan/perspektif",
+          "on": "tentang",
+          "life": "kehidupan"
+        }
+      },
+      {
+        "text": "Environmental awareness should be instilled in children from an early age",
+        "translation": "Kesadaran lingkungan harus ditanamkan pada anak-anak sejak usia dini",
+        "wordTranslations": {
+          "Environmental": "Lingkungan",
+          "awareness": "kesadaran",
+          "should": "harus",
+          "be": "(penanda pasif)",
+          "instilled": "ditanamkan",
+          "in": "pada",
+          "children": "anak-anak",
+          "from": "dari/sejak",
+          "an": "sebuah",
+          "early": "dini/awal",
+          "age": "usia"
+        }
+      },
+      {
+        "text": "She successfully demonstrated her ability to analyze and present scientific data",
+        "translation": "Dia berhasil menunjukkan kemampuannya menganalisis dan menyajikan data ilmiah",
+        "wordTranslations": {
+          "She": "Dia (pr)",
+          "successfully": "dengan berhasil",
+          "demonstrated": "menunjukkan",
+          "her": "miliknya",
+          "ability": "kemampuan",
+          "to": "(penanda infinitif)",
+          "analyze": "menganalisis",
+          "and": "dan",
+          "present": "menyajikan",
+          "scientific": "ilmiah",
+          "data": "data"
+        }
+      }
+    ]
+  }
+}
