@@ -7,11 +7,23 @@ export default class HomeScene extends Phaser.Scene {
         this.load.image('bghome', 'assets/mainmenu.png');
         this.load.image('play', 'assets/play.png')
         this.load.image('credit', 'assets/credit.png')
+        this.load.audio('bgm', 'assets/sound/bgsound.ogg');
     }
 
     create() {
+const existing = this.sound.get('bgm');
+        if (existing) {
+            this.music = existing;
+            if (!this.music.isPlaying) {
+                this.music.play();
+            }
+        } else {
+            this.music = this.sound.add('bgm', { loop: true, volume: 0.5 });
+            this.music.play();
+        }
         this.add.image(1905/2 , 870/2, 'bghome');
         this.add.text(952.5, 200, 'WORD ARRANGE GAME', {
+            fontFamily: 'PixeloidSans-Bold',
             fontSize: '32px'
         }).setOrigin(0.5);
 

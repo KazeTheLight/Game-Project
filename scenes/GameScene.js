@@ -10,6 +10,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.json('sentences', 'assets/data/sentences.json');
         this.load.image('background', 'assets/gameplaybg.png');
         this.load.image('kembali','assets/back.png');
+        this.load.audio('bgs', 'assets/sound/gssound.ogg');
     }
 
     init(data) {
@@ -21,6 +22,12 @@ export default class GameScene extends Phaser.Scene {
     }
 
     create() {
+        if (!this.sound.get('bgs')) {
+            this.music = this.sound.add('bgs', { loop: true, volume: 0.5 });
+            this.music.play();
+        } else {
+            this.music = this.sound.get('bgs');
+        }
         const W  = this.scale.width;
         const H  = this.scale.height;
         const cx = W / 2;
@@ -332,6 +339,7 @@ export default class GameScene extends Phaser.Scene {
         btnBack.setInteractive();
         btnBack.setScale(0.3);
         btnBack.on('pointerdown', () => {
+            if (this.music) this.music.stop();
             this.scene.start('LevelSelectScene');
         });
     }
