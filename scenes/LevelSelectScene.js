@@ -21,6 +21,11 @@ export default class LevelSelectScene extends Phaser.Scene {
     }
 
     create() {
+        this.music = this.sound.get('bgm');
+
+        this.events.on('shutdown', () => {
+            if (this.music) this.music.stop();
+        });
         const W  = this.scale.width;
         const H  = this.scale.height;
         const cx = W / 2;
