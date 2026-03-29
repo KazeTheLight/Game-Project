@@ -15,6 +15,7 @@ export default class LevelSelectScene extends Phaser.Scene {
         this.load.image('level8', 'assets/Level 8.png');
         this.load.image('level9', 'assets/Level 9.png');
         this.load.image('level10', 'assets/Level 10.png');
+        this.load.image('kembali', 'assets/back.png');
     }
 
     create() {
@@ -114,11 +115,9 @@ export default class LevelSelectScene extends Phaser.Scene {
             this.scene.start('GameScene', { level: "10"});
         });
 
-        const btnBack= this.add.text(50, 50, "back" ,
-            { backgroundColor: '#444', padding: 10 }).setInteractive().setOrigin(0.5);
-
-        btnBack.on('pointerdown', () => {
-            this.scene.start('HomeScene')
-        });
+        // Tombol Back yang konsisten dengan style level
+            const btnBack = this.add.image(100, 100, 'kembali').setScale(0.3).setInteractive();
+            btnBack.on('pointerdown', () => btnBack.setTint(0xdddddd));
+            btnBack.on('pointerup', () => this.scene.start('HomeScene'));
     }
 }
