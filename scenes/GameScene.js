@@ -205,11 +205,16 @@ export default class GameScene extends Phaser.Scene {
         // Posisi Y kotak jawaban: tepat di bawah terjemahan + gap, tidak melebihi bawah papan
         const ansY = transBot + gapTransAns + ansBoxH / 2;
 
-        this.answerBox = this.add.rectangle(boardCX, ansY, ansBoxW, ansBoxH, 0x222244)
-            .setStrokeStyle(2, 0x5555aa).setDepth(1);
+        this.answerBox = this.add.graphics().setDepth(1);
+        this.answerBox.fillStyle(0x222244, 1);
+        this.answerBox.fillRoundedRect(boardCX - ansBoxW/2, ansY - ansBoxH/2, ansBoxW, ansBoxH, 10);
+        this.answerBox.lineStyle(2, 0x5555aa, 1);
+        this.answerBox.strokeRoundedRect(boardCX - ansBoxW/2, ansY - ansBoxH/2, ansBoxW, ansBoxH, 10);
 
         const slotStartX = boardCX - ((maxCols2 - 1) * slotSpacX) / 2;
         const slotStartY = ansY    - ((rowCount   - 1) * slotSpacY) / 2;
+
+        const SLOT_RADIUS = 7; // border radius slot
 
         this.correctWords.forEach((_, i) => {
             const col = i % maxCols2;
@@ -217,8 +222,11 @@ export default class GameScene extends Phaser.Scene {
             const sx  = slotStartX + col * slotSpacX;
             const sy  = slotStartY + row * slotSpacY;
 
-            const slotBg = this.add.rectangle(sx, sy, slotW, slotH, 0x333366)
-                .setStrokeStyle(1, 0x7777bb).setDepth(2);
+            const slotBg = this.add.graphics().setDepth(2);
+            slotBg.fillStyle(0x333366, 1);
+            slotBg.fillRoundedRect(sx - slotW/2, sy - slotH/2, slotW, slotH, SLOT_RADIUS);
+            slotBg.lineStyle(1, 0x7777bb, 1);
+            slotBg.strokeRoundedRect(sx - slotW/2, sy - slotH/2, slotW, slotH, SLOT_RADIUS);
 
             const slotTxt = this.add.text(sx, sy, '____', {
                 fontFamily: 'PixeloidSans',
@@ -227,8 +235,10 @@ export default class GameScene extends Phaser.Scene {
                 align:      'center'
             }).setOrigin(0.5).setDepth(3);
 
-            this.answerSlots.push({ index: i, x: sx, y: sy, w: slotW, h: slotH,
-                                    bg: slotBg, txt: slotTxt, word: null, wordBtn: null });
+            this.answerSlots.push({
+                index: i, x: sx, y: sy, w: slotW, h: slotH, r: SLOT_RADIUS,
+                bg: slotBg, txt: slotTxt, word: null, wordBtn: null
+            });
         });
 
         // ── Tooltip ────────────────────────────────────────────
@@ -253,6 +263,11 @@ export default class GameScene extends Phaser.Scene {
         const btnStartX  = cx - ((maxCols - 1) * colSpacing) / 2;
         const btnStartY  = H * 0.70;
 
+        const BTN_RADIUS = 7;
+        const btnPadX    = 10;
+        const btnPadY    = 6;
+        const btnFontSz  = Math.round(15 * W / 800);
+
         shuffled.forEach((word, index) => {
             const col   = index % maxCols;
             const row   = Math.floor(index / maxCols);
@@ -260,26 +275,55 @@ export default class GameScene extends Phaser.Scene {
             const origY = btnStartY + row * rowSpacing;
             const hint  = wordTrans[word] || '';
 
-            const wordBtn = this.add.text(origX, origY, word, {
-                fontFamily:      'PixeloidSans',
-                fontSize:        fs(15),
-                color:           '#ffffff',
-                backgroundColor: '#444466',
-                padding:         { x: 10, y: 6 }
-            }).setOrigin(0.5).setInteractive({ draggable: true }).setDepth(5);
+            // Ukur lebar teks dulu pakai teks sementara
+            const _tmpTxt = this.add.text(0, -9999, word, {
+                fontFamily: 'PixeloidSans', fontSize: `${btnFontSz}px`
+            });
+            const btnW = _tmpTxt.width  + btnPadX * 2;
+            const btnH = _tmpTxt.height + btnPadY * 2;
+            _tmpTxt.destroy();
+
+            // Graphics background rounded
+            const btnBg = this.add.graphics().setDepth(5);
+            btnBg.fillStyle(0x444466, 1);
+            btnBg.fillRoundedRect(-btnW/2, -btnH/2, btnW, btnH, BTN_RADIUS);
+
+            // Label teks
+            const btnTxt = this.add.text(0, 0, word, {
+                fontFamily: 'PixeloidSans',
+                fontSize:   `${btnFontSz}px`,
+                color:      '#ffffff'
+            }).setOrigin(0.5).setDepth(6);
+
+            // Container agar bg + txt bergerak bersama saat drag
+            const wordBtn = this.add.container(origX, origY, [btnBg, btnTxt])
+                .setSize(btnW, btnH)
+                .setInteractive({ draggable: true })
+                .setDepth(5);
 
             wordBtn.origX  = origX;
             wordBtn.origY  = origY;
             wordBtn.word   = word;
             wordBtn.placed = false;
+            wordBtn.btnBg  = btnBg;
+            wordBtn.btnTxt = btnTxt;
+            wordBtn.btnW   = btnW;
+            wordBtn.btnH   = btnH;
 
             this.wordButtons.push(wordBtn);
 
+            // Helper redraw bg tombol kata
+            const redrawBtn = (fillHex, alpha = 1) => {
+                btnBg.clear();
+                btnBg.fillStyle(fillHex, alpha);
+                btnBg.fillRoundedRect(-btnW/2, -btnH/2, btnW, btnH, BTN_RADIUS);
+            };
+
             wordBtn.on('pointerover', () => {
-                if (!wordBtn.placed) wordBtn.setStyle({ backgroundColor: '#6666aa' });
+                if (!wordBtn.placed) redrawBtn(0x6666aa);
                 if (hint && !wordBtn.placed) {
                     const bx = wordBtn.x;
-                    const by = wordBtn.y - wordBtn.height - 10;
+                    const by = wordBtn.y - btnH/2 - 10;
                     const bw = Math.max(hint.length * (W / 800) * 9 + 24, 80);
                     this.tooltipShadow.setPosition(bx + 3, by + 3).setSize(bw, 38).setVisible(true);
                     this.tooltipBox.setPosition(bx, by).setSize(bw, 38).setVisible(true);
@@ -287,16 +331,17 @@ export default class GameScene extends Phaser.Scene {
                 }
             });
             wordBtn.on('pointerout', () => {
-                if (!wordBtn.placed) wordBtn.setStyle({ backgroundColor: '#444466' });
+                if (!wordBtn.placed) redrawBtn(0x444466);
                 this._hideTooltip();
             });
             wordBtn.on('dragstart', () => {
                 if (wordBtn.placed) return;
                 this._hideTooltip();
                 wordBtn.setDepth(30);
-                wordBtn.setStyle({ backgroundColor: '#8888cc' });
+                btnTxt.setDepth(31);
+                redrawBtn(0x8888cc);
                 this.answerSlots.forEach(slot => {
-                    if (!slot.word) slot.bg.setStrokeStyle(2, 0xFFD700);
+                    if (!slot.word) this._redrawSlot(slot, 0x333366, 0xFFD700, 2);
                 });
             });
             wordBtn.on('drag', (pointer, dragX, dragY) => {
@@ -305,18 +350,20 @@ export default class GameScene extends Phaser.Scene {
                 this.answerSlots.forEach(slot => {
                     if (slot.word) return;
                     const dist = Phaser.Math.Distance.Between(dragX, dragY, slot.x, slot.y);
-                    slot.bg.setFillStyle(dist < slotW * 0.9 ? 0x444488 : 0x333366);
-                    if (dist >= slotW * 0.9) slot.bg.setStrokeStyle(2, 0xFFD700);
+                    if (dist < slotW * 0.9) {
+                        this._redrawSlot(slot, 0x444488, 0xFFD700, 2);
+                    } else {
+                        this._redrawSlot(slot, 0x333366, 0xFFD700, 2);
+                    }
                 });
             });
             wordBtn.on('dragend', () => {
                 if (wordBtn.placed) return;
                 wordBtn.setDepth(5);
+                btnTxt.setDepth(6);
+                redrawBtn(0x444466);
                 this.answerSlots.forEach(slot => {
-                    if (!slot.word) {
-                        slot.bg.setFillStyle(0x333366);
-                        slot.bg.setStrokeStyle(1, 0x7777bb);
-                    }
+                    if (!slot.word) this._redrawSlot(slot, 0x333366, 0x7777bb, 1);
                 });
 
                 let nearest = null, nearestDist = Infinity;
@@ -367,10 +414,11 @@ export default class GameScene extends Phaser.Scene {
     _placeWordInSlot(wordBtn, slot, sentences) {
         slot.word = wordBtn.word; slot.wordBtn = wordBtn;
         wordBtn.placed = true;
+        // Fade out container (bg + txt) dan kembalikan ke posisi asal
         wordBtn.setAlpha(0.3).setPosition(wordBtn.origX, wordBtn.origY).disableInteractive();
 
         slot.txt.setText(wordBtn.word).setColor('#00FF99');
-        slot.bg.setFillStyle(0x224422).setStrokeStyle(2, 0x00FF99);
+        this._redrawSlot(slot, 0x224422, 0x00FF99, 2);
 
         this.tweens.add({ targets: slot.txt, scaleX: 1.08, scaleY: 1.08,
                           duration: 80, yoyo: true, ease: 'Power1' });
@@ -388,13 +436,36 @@ export default class GameScene extends Phaser.Scene {
     _returnWordBtn(wordBtn) {
         this.tweens.add({ targets: wordBtn, x: wordBtn.origX, y: wordBtn.origY,
                           duration: 200, ease: 'Back.Out' });
-        wordBtn.setStyle({ backgroundColor: '#444466' });
+        // Redraw bg ke warna normal (container, jadi akses btnBg langsung)
+        if (wordBtn.btnBg) {
+            wordBtn.btnBg.clear();
+            wordBtn.btnBg.fillStyle(0x444466, 1);
+            wordBtn.btnBg.fillRoundedRect(
+                -wordBtn.btnW/2, -wordBtn.btnH/2,
+                wordBtn.btnW, wordBtn.btnH, 7
+            );
+        }
     }
 
     _hideTooltip() {
         this.tooltipShadow.setVisible(false);
         this.tooltipBox.setVisible(false);
         this.tooltipText.setVisible(false);
+    }
+
+    // ── Redraw slot dengan rounded rect ───────────────────────
+    _redrawSlot(slot, fillColor, strokeColor, strokeWidth) {
+        slot.bg.clear();
+        slot.bg.fillStyle(fillColor, 1);
+        slot.bg.fillRoundedRect(
+            slot.x - slot.w / 2, slot.y - slot.h / 2,
+            slot.w, slot.h, slot.r
+        );
+        slot.bg.lineStyle(strokeWidth, strokeColor, 1);
+        slot.bg.strokeRoundedRect(
+            slot.x - slot.w / 2, slot.y - slot.h / 2,
+            slot.w, slot.h, slot.r
+        );
     }
 
     checkAnswer(sentences) {
@@ -418,7 +489,7 @@ export default class GameScene extends Phaser.Scene {
                     this.correctCountText.setColor('#00FF99');
 
                 this.answerSlots.forEach(s => {
-                    s.bg.setFillStyle(0x003300).setStrokeStyle(2, 0x00ff99);
+                    this._redrawSlot(s, 0x003300, 0x00ff99, 2);
                 });
 
                 this.add.text(cx, H * 0.82, '✓ Benar! +20', {
@@ -442,7 +513,7 @@ export default class GameScene extends Phaser.Scene {
                 this.lives -= 1;
                 this.livesText.setText(`♥ ${this.lives}`);
                 this.answerSlots.forEach(s => {
-                    s.bg.setFillStyle(0x330000).setStrokeStyle(2, 0xff4444);
+                    this._redrawSlot(s, 0x330000, 0xff4444, 2);
                 });
 
                 if (this.lives <= 0) {
