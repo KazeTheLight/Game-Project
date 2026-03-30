@@ -22,9 +22,12 @@ export default class HomeScene extends Phaser.Scene {
             this.music.play();
         }
         this.add.image(1905/2 , 870/2, 'bghome');
-        this.add.text(952.5, 200, 'WORD ARRANGE GAME', {
+        this.add.text(930.5, 200, 'WORD ARRANGE GAME', {
             fontFamily: 'PixeloidSans-Bold',
-            fontSize: '32px'
+            fontSize: '50px',
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 6
         }).setOrigin(0.5);
 
 

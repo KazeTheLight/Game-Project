@@ -75,13 +75,17 @@ export default class GameScene extends Phaser.Scene {
         this.add.text(cx, H * 0.05, `Level ${this.level}`, {
             fontFamily: 'PixeloidSans-Bold',
             fontSize:   fs(28),
-            color:      '#FFD700'
+            color:      '#FFD700',
+            stroke: `#000000`,
+            strokeThickness: 6
         }).setOrigin(0.5).setDepth(1);
 
         this.add.text(cx, H * 0.11, `Soal ${this.questionIndex + 1} / ${this.totalQuestions}`, {
             fontFamily: 'PixeloidSans',
             fontSize:   fs(16),
-            color:      '#ffffff'
+            color:      '#ffffff',
+            stroke: `#000000`,
+            strokeThickness: 6
         }).setOrigin(0.5).setDepth(1);
 
         this.scoreText = this.add.text(W * 0.02, H * 0.03, `Score: ${this.score}`, {
@@ -120,52 +124,92 @@ export default class GameScene extends Phaser.Scene {
         }).setOrigin(1, 0).setDepth(1);
 
         // ── Terjemahan Kalimat ─────────────────────────────────
-        const transBoxW = boardW * 0.88;
-        const transBoxH = H * 0.09;
-        const transY    = boardTop + boardH * 0.18;
+        const transBoxW  = boardW * 0.88;
+        const transBoxH  = H * 0.10;
+        const transPadT  = H * 0.012;
+        const transY     = boardTop + transPadT + transBoxH / 2;
+        const transBot   = transY + transBoxH / 2;
 
         this.translationBox = this.add.rectangle(boardCX, transY, transBoxW, transBoxH, 0x1a1a2e)
             .setVisible(false).setStrokeStyle(2, 0xFFD700).setDepth(3);
 
-        this.translationLabel = this.add.text(
-            boardCX - transBoxW / 2 + 10,
-            transY - transBoxH / 2 + 4,
-            'Terjemahan:', {
-                fontFamily: 'PixeloidSans',
-                fontSize:   fs(11),
-                color:      '#888888'
-            }
-        ).setDepth(4).setVisible(false);
+        // Auto-scale font terjemahan agar muat dalam kotak (max 15, min 9)
+        const transInnerW = transBoxW - 24;
+        const transInnerH = transBoxH - 16;
+        let transFontSz = Math.round(15 * W / 800);
+        const transFontMin = Math.round(9 * W / 800);
 
-        this.translationText = this.add.text(boardCX, transY + 4, translation, {
+        // Buat teks sementara untuk mengukur, lalu hapus
+        const _measureTrans = (sz) => {
+            const t = this.add.text(0, -9999, translation, {
+                fontFamily: 'PixeloidSans, Arial',
+                fontSize:   `${sz}px`,
+                wordWrap:   { width: transInnerW },
+            }).setVisible(false);
+            const bounds = t.getBounds();
+            t.destroy();
+            return { w: bounds.width, h: bounds.height };
+        };
+
+        while (transFontSz > transFontMin) {
+            const b = _measureTrans(transFontSz);
+            if (b.w <= transInnerW && b.h <= transInnerH) break;
+            transFontSz -= 1;
+        }
+
+        this.translationText = this.add.text(boardCX, transY, translation, {
             fontFamily: 'PixeloidSans, Arial',
-            fontSize:   fs(15),
+            fontSize:   `${transFontSz}px`,
             color:      '#FFD700',
-            wordWrap:   { width: transBoxW - 24 },
+            wordWrap:   { width: transInnerW },
             align:      'center'
         }).setOrigin(0.5).setDepth(4).setVisible(false);
 
         // ── Area Jawaban + Slot ────────────────────────────────
-        const slotCount  = this.correctWords.length;
-        const slotPadY   = 5;
-        const slotFontSz = Math.round(14 * W / 800);
+        const slotCount = this.correctWords.length;
+        const slotPadY  = 4;
 
-        const maxCols2 = slotCount <= 5 ? slotCount : Math.ceil(slotCount / 2);
-        const rowCount = Math.ceil(slotCount / maxCols2);
+        // Ruang vertikal yang tersedia untuk kotak jawaban (dalam papan)
+        const gapTransAns    = H * 0.025;                     // jarak terjemahan ↔ kotak jawaban
+        const ansMarginBot   = H * 0.015;                     // jarak kotak jawaban ↔ bawah papan
+        const availableH     = boardBot - transBot - gapTransAns - ansMarginBot;
 
-        const ansBoxW   = boardW * 0.88;
-        const slotW     = Math.max(48, Math.floor((ansBoxW - 16) / maxCols2) - 10);
-        const slotH     = slotFontSz + slotPadY * 2 + 4;
-        const slotSpacX = slotW + 10;
-        const slotSpacY = slotH + 14;
-        const ansBoxH   = (slotH + 16) * rowCount + 20;
-        const ansY      = boardTop + boardH * 0.58;
+        // Lebar maksimum grid slot
+        const maxGridW = boardW * 0.86;
+
+        // Estimasi lebar slot dari kata terpanjang
+        const longestWord = this.correctWords.reduce((a, b) => b.length > a.length ? b : a, '');
+        const charPxEst   = 9 * W / 800;
+        const slotW       = Math.max(Math.ceil(longestWord.length * charPxEst) + 24, 60);
+
+        // Hitung berapa kolom yang muat secara horizontal
+        const slotSpacX  = slotW + 8;
+        const maxColsFit = Math.max(1, Math.floor((maxGridW + 8) / slotSpacX));
+        const maxCols2   = Math.min(slotCount, maxColsFit);
+        const rowCount   = Math.ceil(slotCount / maxCols2);
+
+        // Hitung slotH agar semua baris muat dalam availableH
+        // slotSpacY = slotH + 10, ansBoxH = rowCount * slotSpacY - 10 + 20
+        // → cari slotH terbesar yang membuat ansBoxH ≤ availableH
+        const maxSlotH   = Math.floor((availableH - 20 + 10) / rowCount) - 10;
+        const slotFontSz = Math.max(Math.round(9 * W / 800),
+                           Math.min(Math.round(14 * W / 800), maxSlotH - slotPadY * 2 - 4));
+        const slotH      = slotFontSz + slotPadY * 2 + 4;
+        const slotSpacY  = slotH + 10;
+
+        // Lebar & tinggi box final
+        const actualGridW = maxCols2 * slotSpacX - 8;
+        const ansBoxW     = actualGridW + 20;
+        const ansBoxH     = rowCount * slotSpacY - 10 + 20;
+
+        // Posisi Y kotak jawaban: tepat di bawah terjemahan + gap, tidak melebihi bawah papan
+        const ansY = transBot + gapTransAns + ansBoxH / 2;
 
         this.answerBox = this.add.rectangle(boardCX, ansY, ansBoxW, ansBoxH, 0x222244)
             .setStrokeStyle(2, 0x5555aa).setDepth(1);
 
         const slotStartX = boardCX - ((maxCols2 - 1) * slotSpacX) / 2;
-        const slotStartY = ansY    - ((rowCount - 1) * slotSpacY) / 2;
+        const slotStartY = ansY    - ((rowCount   - 1) * slotSpacY) / 2;
 
         this.correctWords.forEach((_, i) => {
             const col = i % maxCols2;
@@ -201,7 +245,10 @@ export default class GameScene extends Phaser.Scene {
 
         // ── Tombol Kata ────────────────────────────────────────
         const maxCols    = Math.min(shuffled.length, 5);
-        const colSpacing = W * 0.15;
+        // Hitung colSpacing berdasarkan kata terpanjang agar tidak bertabrakan
+        const longestShuffled = shuffled.reduce((a, b) => b.length > a.length ? b : a, '');
+        const minColSpacing   = Math.ceil(longestShuffled.length * (9 * W / 800)) + 30;
+        const colSpacing = Math.max(W * 0.15, minColSpacing);
         const rowSpacing = H * 0.09;
         const btnStartX  = cx - ((maxCols - 1) * colSpacing) / 2;
         const btnStartY  = H * 0.70;
@@ -332,7 +379,6 @@ export default class GameScene extends Phaser.Scene {
 
         if (this.answerSlots.every(s => s.word)) {
             this.translationBox.setVisible(true);
-            this.translationLabel.setVisible(true);
             this.translationText.setVisible(true);
             this.playerWords = this.answerSlots.map(s => s.word);
             this.checkAnswer(sentences);

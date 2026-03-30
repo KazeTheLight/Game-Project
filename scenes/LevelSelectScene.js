@@ -34,8 +34,11 @@ export default class LevelSelectScene extends Phaser.Scene {
         this.add.image(W / 2, H / 2, 'bglevel').setDisplaySize(W, H);
 
         this.add.text(1090, 130, 'SELECT LEVEL', {
-            fontSize:   '32px',
-            fontFamily: 'PixeloidSans-Bold'
+            fontSize:   '50px',
+            fontFamily: 'PixeloidSans-Bold',
+            color :     '#ffffff',
+            stroke :    '#000000',
+            strokeThickness: 6
         }).setOrigin(0.5);
 
         // Hint kriteria unlock
