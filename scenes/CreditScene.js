@@ -4,7 +4,7 @@ export default class CreditScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'assets/mainmenu.png');
+
     }
 
     create() {
@@ -85,19 +85,24 @@ export default class CreditScene extends Phaser.Scene {
         });
         y += lineH;
 
-        addText(y, 'Game Design & Programming', {
-            fontFamily: 'PixeloidSans',
-            fontSize:   fs(16),
-            color:      '#888899'
-        });
-        y += lineH * 0.75;
-
-        addText(y, 'Nama Developer / Tim Kamu', {
+        [
+            ['Game Designer', 'Bayu Dian Permadi'],
+            ['programmer', 'Andravito Brilian Satrya'],
+            ['Document', 'Kurnia Haikal'],
+        ].forEach(([label, value]) => {
+            addText(y, label, {
             fontFamily: 'PixeloidSans-Bold',
-            fontSize:   fs(24),
-            color:      '#ffffff'
-        });
-        y += lineH * 2.0;
+            fontSize:   fs(14),
+            color:      '#888899'
+            });
+            y += lineH * 0.65;
+            addText(y, value, {
+                fontFamily: 'PixeloidMono',
+                fontSize:   fs(18),
+                color:      '#00FF99'
+            });
+            y += lineH * 1.1;
+        })
 
         // ── Seksi: Tools & Engine ──────────────────────────────
         addText(y, '— Built With —', {
@@ -110,7 +115,6 @@ export default class CreditScene extends Phaser.Scene {
         [
             ['Game Engine',   'Phaser 3'],
             ['Language',      'JavaScript (ES6 Modules)'],
-            ['Fonts',         'Pixeloid Font Family by GGBotNet'],
         ].forEach(([label, value]) => {
             addText(y, label, {
                 fontFamily: 'PixeloidSans',

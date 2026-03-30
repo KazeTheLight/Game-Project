@@ -39,7 +39,7 @@ export default class LevelSelectScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // Hint kriteria unlock
-        this.add.text(cx, H * 0.88,
+        this.add.text(cx, H * 0.90,
             '🔒 Selesaikan level sebelumnya dengan minimal 3 soal benar atau 60 skor untuk membuka level berikutnya', {
             fontFamily: 'PixeloidSans',
             fontSize:   fs(13),
@@ -138,6 +138,10 @@ export default class LevelSelectScene extends Phaser.Scene {
         btnBack.on('pointerdown', () => btnBack.setTint(0xdddddd));
         btnBack.on('pointerup',   () => this.scene.start('HomeScene'));
 
+        //tooltip untuk hint
+        this._tooltipBgHint   = this.add.rectangle(cx, H * 0.90, 1500, 100, 0x1a1a2e)
+            .setStrokeStyle(1, 0xFFD700).setVisible(true).setDepth(0);
+
         // Elemen tooltip (dibuat sekali, disembunyikan)
         this._tooltipBg   = this.add.rectangle(0, 0, 220, 50, 0x1a1a2e)
             .setStrokeStyle(1, 0xFFD700).setVisible(false).setDepth(10);
@@ -151,7 +155,7 @@ export default class LevelSelectScene extends Phaser.Scene {
     _showLockTooltip(x, y, msg, fs) {
         const lines = msg.split('\n').length;
         const h     = 30 + lines * 20;
-        const w     = 240;
+        const w     = 500;
         this._tooltipBg.setPosition(x, y).setSize(w, h).setVisible(true);
         this._tooltipText.setPosition(x, y).setText(msg).setFontSize(fs ? fs(12) : '12px').setVisible(true);
     }

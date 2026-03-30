@@ -90,6 +90,9 @@ export default class GameScene extends Phaser.Scene {
             color:      '#00FF99'
         }).setDepth(1);
 
+        this._tooltipBgScore   = this.add.rectangle(160,70, 280, 100, 0x1a1a2e)
+            .setStrokeStyle(1, 0xFFD700).setVisible(true).setDepth(0);
+
         this.livesText = this.add.text(W * 0.98, H * 0.03, `♥ ${this.lives}`, {
             fontFamily: 'PixeloidMono',
             fontSize:   fs(16),
@@ -103,6 +106,9 @@ export default class GameScene extends Phaser.Scene {
             fontSize:   fs(13),
             color:      this.correctCount >= this.MIN_CORRECT ? '#00FF99' : '#aaffaa'
         }).setDepth(1);
+
+        this._tooltipBgHealth   = this.add.rectangle(1620,70, 550, 100, 0x1a1a2e)
+            .setStrokeStyle(1, 0xFFD700).setVisible(true).setDepth(0);
 
         // ── Hint kriteria lulus ────────────────────────────────
         this.add.text(W * 0.98, H * 0.08,
@@ -198,7 +204,7 @@ export default class GameScene extends Phaser.Scene {
         const colSpacing = W * 0.15;
         const rowSpacing = H * 0.09;
         const btnStartX  = cx - ((maxCols - 1) * colSpacing) / 2;
-        const btnStartY  = H * 0.65;
+        const btnStartY  = H * 0.70;
 
         shuffled.forEach((word, index) => {
             const col   = index % maxCols;
@@ -287,11 +293,11 @@ export default class GameScene extends Phaser.Scene {
         const resetBtn = this.add.text(cx, H * 0.93, '[ Reset ]', {
             fontFamily: 'PixeloidSans',
             fontSize:   fs(16),
-            color:      '#aaaaaa'
+            color:      '#ffffff'
         }).setOrigin(0.5).setInteractive().setDepth(5);
 
-        resetBtn.on('pointerover', () => resetBtn.setColor('#ffffff'));
-        resetBtn.on('pointerout',  () => resetBtn.setColor('#aaaaaa'));
+        resetBtn.on('pointerover', () => resetBtn.setColor('#aaaaaa'));
+        resetBtn.on('pointerout',  () => resetBtn.setColor('#ffffff'));
         resetBtn.on('pointerdown', () => {
             this.scene.restart({
                 level: this.level, questionIndex: this.questionIndex,
